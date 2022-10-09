@@ -2,6 +2,8 @@ package Campus.Model;
 
 public class Country {
    private String name;
+    private String code;
+    private String id;
 
     public String getName() {
         return name;
@@ -27,8 +29,7 @@ public class Country {
         this.id = id;
     }
 
-    private String code;
-   private String id;
+
 
 
 
