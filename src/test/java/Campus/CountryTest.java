@@ -144,7 +144,7 @@ public class CountryTest {
 
                 .then()
                 .log().body()
-                .statusCode(200)
+                .statusCode(208) //restasssured test ng hatalı duruma düşmesi için 208 yaptık
         ;
     }
     @Test(dependsOnMethods ="deleteCountry")
