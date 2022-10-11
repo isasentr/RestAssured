@@ -4,19 +4,19 @@ import Projemersys.Base.Base;
 import io.restassured.http.ContentType;
 import io.restassured.http.Cookies;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static io.restassured.RestAssured.baseURI;
-import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.*;
 
 public class Proje05 {
     Cookies cookies;
 
-    @BeforeTest
+ @BeforeTest
     public void loginCampusMersys() {
 
         baseURI = "https://demo.mersys.io/";
@@ -41,28 +41,25 @@ public class Proje05 {
         ;
     }
 
-    String addPositionName;
-    String addPositionSName;
+    String addPositionName = getRandomName( 8);
+    String addPositionSName = getRandomSName( 6);
     String addPositionID;
-    String addPositionTenantID="5fe0786230cc4d59295712cf";
+    String addTenderId = getTanderId();
 
-    @Test
+@Test
     public void addPosition() {
-        addPositionName = getRandomName();
-        addPositionSName = getRandomSName();
+        Base addPosition = new Base(addPositionName, addPositionSName);
 
-        Base addPosition = new Base();
-        addPosition.setName(addPositionName);
-        addPosition.setSname(addPositionSName);
-        addPosition.setTenid(addPositionTenantID);
-
-        addPositionID=
+        addPositionID =
                 given()
                         .cookies(cookies)
-                        .contentType(ContentType.JSON)
                         .body(addPosition)
+//                        .log().body()
+                        .contentType(ContentType.JSON)
+
 
                         .when()
+//                        .log().body()
                         .post("school-service/api/employee-position")
 
                         .then()
@@ -71,14 +68,17 @@ public class Proje05 {
                         .extract().jsonPath().getString("id")
 
         ;
+    System.out.println("addPosition = " + addPosition);
+    }
+
+    public String getRandomName(int value) {return RandomStringUtils.randomAlphabetic(value).toLowerCase();}
+
+    public String getRandomSName(int value) {
+        return RandomStringUtils.randomAlphabetic(value).toLowerCase();
     }
 
 
-    public String getRandomName() {
-        return RandomStringUtils.randomAlphabetic(7).toLowerCase();
-    }
-
-    public String getRandomSName() {
-        return RandomStringUtils.randomAlphabetic(6).toLowerCase();
+    public String getTanderId() {
+        return RandomStringUtils.randomAlphanumeric(6);
     }
 }

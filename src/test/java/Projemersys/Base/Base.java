@@ -4,7 +4,13 @@ public class Base {
    private String name;
    private String Sname;
    private String id;
-   private String Tenid;
+   private String tenderId;
+
+    public Base(String name, String sname ) {
+        setName(name);
+        setSname(sname);
+        setTenderId(tenderId);
+    }
 
     public String getName() {
         return name;
@@ -26,15 +32,16 @@ public class Base {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    public void setId(String id) {this.id = id;}
 
-    public String getTenid() {
-        return Tenid;
-    }
+    public String getTenderId() {return tenderId;}
 
-    public void setTenid(String tenid) {
-        Tenid = tenid;
-    }
+    public void setTenderId(String tenderId) {this.tenderId = tenderId;}
+
+
+
+
+
+
 }
+
